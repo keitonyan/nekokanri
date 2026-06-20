@@ -130,39 +130,10 @@ function addTime(){
 
 function editCell(cat,time){
 
-  const choice = prompt(
-`記録を選択
+  currentCell = cat + "_" + time;
 
-1 💧
-2 💩
-3 ⚠️
-4 IN
-5 OUT
-6 😴
-7 🍞`
-  );
-
-  const map = {
-    "1":"💧",
-    "2":"💩",
-    "3":"⚠️",
-    "4":"IN",
-    "5":"OUT",
-    "6":"😴",
-    "7":"🍞"
-  };
-
-  if(!map[choice]) return;
-
-  const key = cat + "_" + time;
-
-  records[key] = (records[key] || "") + map[choice];
-
-  renderBoard();
+  document.getElementById("popup").style.display = "block";
 }
-
-renderBoard();
-</script>
 
 </body>
 </html>
