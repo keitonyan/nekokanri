@@ -61,6 +61,8 @@ const cats = [
 
 let times = ["10:00","12:00"];
 
+const records = {};
+
 function renderBoard(){
 
   const board = document.getElementById("board");
@@ -77,8 +79,23 @@ function renderBoard(){
 
     html += `<tr><td>${cat}</td>`;
 
-    times.forEach(()=>{
-      html += `<td style="width:80px;height:50px;"></td>`;
+    times.forEach(time=>{
+
+      const key = cat + "_" + time;
+      const value = records[key] || "";
+
+      html += `
+      <td
+        onclick="editCell('${cat}','${time}')"
+        style="
+          width:90px;
+          height:50px;
+          text-align:center;
+          cursor:pointer;
+          font-size:14px;
+        ">
+        ${value}
+      </td>`;
     });
 
     html += "</tr>";
@@ -90,7 +107,7 @@ function renderBoard(){
 
 function addTime(){
 
-  const time = prompt("時間を入力してください");
+  const time = prompt("時間を入力");
 
   if(!time) return;
 
@@ -99,8 +116,40 @@ function addTime(){
   renderBoard();
 }
 
-renderBoard();
+function editCell(cat,time){
 
+  const choice = prompt(
+`記録を選択
+
+1 💧
+2 💩
+3 ⚠️
+4 IN
+5 OUT
+6 😴
+7 🍞`
+  );
+
+  const map = {
+    "1":"💧",
+    "2":"💩",
+    "3":"⚠️",
+    "4":"IN",
+    "5":"OUT",
+    "6":"😴",
+    "7":"🍞"
+  };
+
+  if(!map[choice]) return;
+
+  const key = cat + "_" + time;
+
+  records[key] = (records[key] || "") + map[choice];
+
+  renderBoard();
+}
+
+renderBoard();
 </script>
 
 </body>
