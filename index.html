@@ -2,57 +2,107 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>猫管理</title>
 
 <style>
+
 body{
-font-family:sans-serif;
-margin:20px;
-background:#f5f5f5;
+    font-family:sans-serif;
+    padding:20px;
 }
 
 h1{
-text-align:center;
+    text-align:center;
 }
 
 button{
-padding:10px 15px;
-font-size:18px;
-margin:5px;
-border:none;
-border-radius:8px;
+    padding:8px 12px;
+    margin:3px;
 }
 
-.urine{
-background:#4da6ff;
-color:white;
+table{
+    border-collapse:collapse;
+    margin-top:20px;
 }
 
-.poop{
-background:#8b5a2b;
-color:white;
+th,td{
+    border:1px solid #ccc;
+    text-align:center;
 }
 
-.accident{
-background:#ffcc00;
+th{
+    background:#f5f5f5;
+}
+
+.cat-name{
+    min-width:100px;
+}
+
+.cell{
+    width:90px;
+    height:60px;
+    cursor:pointer;
+    font-size:14px;
+    overflow:hidden;
+}
+
+#popup{
+    display:none;
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    background:white;
+    border:1px solid #ccc;
+    border-radius:10px;
+    padding:20px;
+    box-shadow:0 0 15px rgba(0,0,0,0.2);
+    z-index:999;
+}
+
+.popup-btn{
+    font-size:20px;
+    margin:5px;
 }
 
 </style>
 </head>
 
-  <body>
+<body>
 
 <h1>🐱 猫管理</h1>
 
 <button onclick="addCat()">➕ 猫追加</button>
-
 <button onclick="addTime()">➕ 時間追加</button>
 
-<table border="1" id="board" style="margin-top:20px;border-collapse:collapse;">
-</table>
+<table id="board"></table>
+
+<div id="popup">
+
+<button class="popup-btn" onclick="addRecord('💧')">💧</button>
+<button class="popup-btn" onclick="addRecord('💩')">💩</button>
+<button class="popup-btn" onclick="addRecord('⚠️')">⚠️</button>
+
+<br>
+
+<button class="popup-btn" onclick="addRecord('IN')">IN</button>
+<button class="popup-btn" onclick="addRecord('OUT')">OUT</button>
+
+<br>
+
+<button class="popup-btn" onclick="addRecord('😴')">😴</button>
+<button class="popup-btn" onclick="addRecord('🍞')">🍞</button>
+
+<br><br>
+
+<button onclick="closePopup()">閉じる</button>
+
+</div>
 
 <script>
+
 let cats = [
 "アース",
 "ちっぷ",
@@ -61,127 +111,99 @@ let cats = [
 "こと"
 ];
 
-let times = ["10:00","12:00"];
+let times = [
+"10:00",
+"12:00"
+];
 
-const records = {};
+let records = {};
+
+let currentCell = "";
 
 function renderBoard(){
 
-  const board = document.getElementById("board");
-
-  let html = "<tr><th>猫</th>";
-
-  times.forEach(time=>{
-    html += `<th>${time}</th>`;
-  });
-
-  html += "</tr>";
-
-  cats.forEach(cat=>{
-
-    html += `<tr><td>${cat}</td>`;
+    let html = "<tr><th>猫</th>";
 
     times.forEach(time=>{
-
-      const key = cat + "_" + time;
-      const value = records[key] || "";
-
-      html += `
-      <td
-        onclick="editCell('${cat}','${time}')"
-        style="
-          width:90px;
-          height:50px;
-          text-align:center;
-          cursor:pointer;
-          font-size:14px;
-        ">
-        ${value}
-      </td>`;
+        html += `<th>${time}</th>`;
     });
 
     html += "</tr>";
 
-  });
+    cats.forEach(cat=>{
 
-  board.innerHTML = html;
+        html += `<tr>`;
+        html += `<td class="cat-name">${cat}</td>`;
+
+        times.forEach(time=>{
+
+            const key = cat + "_" + time;
+            const value = records[key] || "";
+
+            html += `
+            <td
+            class="cell"
+            onclick="editCell('${cat}','${time}')">
+            ${value}
+            </td>
+            `;
+
+        });
+
+        html += "</tr>";
+
+    });
+
+    document.getElementById("board").innerHTML = html;
 }
+
 function addCat(){
 
-  const name = prompt("猫の名前を入力");
+    const name = prompt("猫の名前");
 
-  if(!name) return;
+    if(!name) return;
 
-  cats.push(name);
+    cats.push(name);
 
-  renderBoard();
+    renderBoard();
 }
-  
+
 function addTime(){
 
-  const time = prompt("時間を入力");
+    const time = prompt("時間");
 
-  if(!time) return;
+    if(!time) return;
 
-  times.push(time);
+    times.push(time);
 
-  renderBoard();
+    renderBoard();
 }
 
 function editCell(cat,time){
 
-  currentCell = cat + "_" + time;
+    currentCell = cat + "_" + time;
 
-  document.getElementById("popup").style.display = "block";
+    document.getElementById("popup").style.display = "block";
 }
-
-<button onclick="addRecord('💧')">💧</button>
-<button onclick="addRecord('💩')">💩</button>
-<button onclick="addRecord('⚠️')">⚠️</button>
-
-<br><br>
-
-<button onclick="closePopup()">閉じる</button>
-
-</div>
-
-<script>
 
 function addRecord(icon){
 
-  records[currentCell] =
+    records[currentCell] =
     (records[currentCell] || "") + icon;
 
-  closePopup();
+    closePopup();
 
-  renderBoard();
+    renderBoard();
 }
 
 function closePopup(){
 
-  document.getElementById("popup").style.display = "none";
+    document.getElementById("popup").style.display = "none";
 }
 
+renderBoard();
+
 </script>
-    <div id="popup" style="
-display:none;
-position:fixed;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-background:white;
-padding:20px;
-border:1px solid #ccc;
-">
 
-<button onclick="addRecord('💧')">💧</button>
-<button onclick="addRecord('💩')">💩</button>
-<button onclick="addRecord('⚠️')">⚠️</button>
-
-<br><br>
-
-<button onclick="closePopup()">閉じる</button>
-
-</div>
 </body>
 </html>
