@@ -41,11 +41,14 @@ background:#ffcc00;
 </style>
 </head>
 
-<body>
+  <body>
 
 <h1>🐱 猫管理</h1>
 
-<div id="cats"></div>
+<button onclick="addTime()">➕ 時間追加</button>
+
+<table border="1" id="board" style="margin-top:20px;border-collapse:collapse;">
+</table>
 
 <script>
 const cats = [
@@ -56,25 +59,48 @@ const cats = [
 "こと"
 ];
 
-const container = document.getElementById("cats");
+let times = ["10:00","12:00"];
 
-cats.forEach(cat => {
-  const card = document.createElement("div");
+function renderBoard(){
 
-  card.innerHTML = `
-    <h3>${cat}</h3>
+  const board = document.getElementById("board");
 
-    <button>💧</button>
-    <button>💩</button>
-    <button>⚠️</button>
-    <button>IN</button>
-    <button>OUT</button>
+  let html = "<tr><th>猫</th>";
 
-    <hr>
-  `;
+  times.forEach(time=>{
+    html += `<th>${time}</th>`;
+  });
 
-  container.appendChild(card);
-});
+  html += "</tr>";
+
+  cats.forEach(cat=>{
+
+    html += `<tr><td>${cat}</td>`;
+
+    times.forEach(()=>{
+      html += `<td style="width:80px;height:50px;"></td>`;
+    });
+
+    html += "</tr>";
+
+  });
+
+  board.innerHTML = html;
+}
+
+function addTime(){
+
+  const time = prompt("時間を入力してください");
+
+  if(!time) return;
+
+  times.push(time);
+
+  renderBoard();
+}
+
+renderBoard();
+
 </script>
 
 </body>
