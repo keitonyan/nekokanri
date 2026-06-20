@@ -45,13 +45,15 @@ background:#ffcc00;
 
 <h1>🐱 猫管理</h1>
 
+<button onclick="addCat()">➕ 猫追加</button>
+
 <button onclick="addTime()">➕ 時間追加</button>
 
 <table border="1" id="board" style="margin-top:20px;border-collapse:collapse;">
 </table>
 
 <script>
-const cats = [
+let cats = [
 "アース",
 "ちっぷ",
 "大将",
@@ -104,7 +106,17 @@ function renderBoard(){
 
   board.innerHTML = html;
 }
+function addCat(){
 
+  const name = prompt("猫の名前を入力");
+
+  if(!name) return;
+
+  cats.push(name);
+
+  renderBoard();
+}
+  
 function addTime(){
 
   const time = prompt("時間を入力");
