@@ -45,9 +45,37 @@ background:#ffcc00;
 
 <h1>🐱 猫管理</h1>
 
-<button class="urine">💧 尿</button>
-<button class="poop">💩 便</button>
-<button class="accident">⚠️ 粗相</button>
+<div id="cats"></div>
+
+<script>
+const cats = [
+"アース",
+"ちっぷ",
+"大将",
+"ラク",
+"こと"
+];
+
+const container = document.getElementById("cats");
+
+cats.forEach(cat => {
+  const card = document.createElement("div");
+
+  card.innerHTML = `
+    <h3>${cat}</h3>
+
+    <button>💧</button>
+    <button>💩</button>
+    <button>⚠️</button>
+    <button>IN</button>
+    <button>OUT</button>
+
+    <hr>
+  `;
+
+  container.appendChild(card);
+});
+</script>
 
 </body>
 </html>
