@@ -183,8 +183,9 @@ function addTime(){
 
     const time = prompt("時間");
 
-    if(!time) 
-        times.push(time);
+if(!time) return;
+
+times.push(time);
 
 localStorage.setItem(
   "times",
