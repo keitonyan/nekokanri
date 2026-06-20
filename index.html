@@ -162,21 +162,6 @@ function closePopup(){
   document.getElementById("popup").style.display = "none";
 }
 
-renderBoard();
-function addRecord(icon){
-
-  records[currentCell] =
-    (records[currentCell] || "") + icon;
-
-  closePopup();
-
-  renderBoard();
-}
-
-function closePopup(){
-
-  document.getElementById("popup").style.display = "none";
-}
 </script>
     <div id="popup" style="
 display:none;
