@@ -135,5 +135,68 @@ function editCell(cat,time){
   document.getElementById("popup").style.display = "block";
 }
 
+<button onclick="addRecord('💧')">💧</button>
+<button onclick="addRecord('💩')">💩</button>
+<button onclick="addRecord('⚠️')">⚠️</button>
+
+<br><br>
+
+<button onclick="closePopup()">閉じる</button>
+
+</div>
+
+<script>
+
+function addRecord(icon){
+
+  records[currentCell] =
+    (records[currentCell] || "") + icon;
+
+  closePopup();
+
+  renderBoard();
+}
+
+function closePopup(){
+
+  document.getElementById("popup").style.display = "none";
+}
+
+renderBoard();
+function addRecord(icon){
+
+  records[currentCell] =
+    (records[currentCell] || "") + icon;
+
+  closePopup();
+
+  renderBoard();
+}
+
+function closePopup(){
+
+  document.getElementById("popup").style.display = "none";
+}
+</script>
+    <div id="popup" style="
+display:none;
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:white;
+padding:20px;
+border:1px solid #ccc;
+">
+
+<button onclick="addRecord('💧')">💧</button>
+<button onclick="addRecord('💩')">💩</button>
+<button onclick="addRecord('⚠️')">⚠️</button>
+
+<br><br>
+
+<button onclick="closePopup()">閉じる</button>
+
+</div>
 </body>
 </html>
