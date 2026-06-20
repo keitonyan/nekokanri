@@ -103,7 +103,9 @@ th{
 
 <script>
 
-let cats = [
+let cats = JSON.parse(
+localStorage.getItem("cats")
+) || [
 "アース",
 "ちっぷ",
 "大将",
@@ -111,12 +113,16 @@ let cats = [
 "こと"
 ];
 
-let times = [
+let times = JSON.parse(
+localStorage.getItem("times")
+) || [
 "10:00",
 "12:00"
 ];
 
-let records = {};
+let records = JSON.parse(
+localStorage.getItem("records")
+) || {};
 
 let currentCell = "";
 
@@ -163,20 +169,29 @@ function addCat(){
 
     if(!name) return;
 
-    cats.push(name);
+ cats.push(name);
 
-    renderBoard();
+localStorage.setItem(
+  "cats",
+  JSON.stringify(cats)
+);
+
+renderBoard();
 }
 
 function addTime(){
 
     const time = prompt("時間");
 
-    if(!time) return;
+    if(!time) 
+        times.push(time);
 
-    times.push(time);
+localStorage.setItem(
+  "times",
+  JSON.stringify(times)
+);
 
-    renderBoard();
+renderBoard();
 }
 
 function editCell(cat,time){
@@ -190,6 +205,11 @@ function addRecord(icon){
 
     records[currentCell] =
     (records[currentCell] || "") + icon;
+
+    localStorage.setItem(
+      "records",
+      JSON.stringify(records)
+    );
 
     closePopup();
 
