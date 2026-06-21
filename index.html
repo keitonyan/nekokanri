@@ -81,15 +81,22 @@ th{
 
 <div id="popup">
 <h3 id="popupTitle"></h3>
+<div id="currentRecord"
+style="
+margin-bottom:15px;
+font-size:20px;
+font-weight:bold;
+">
+</div>
     
 <button class="popup-btn" onclick="addRecord('💧')">
-    💧 尿
+    💧尿
 </button>
 <button class="popup-btn" onclick="addRecord('💩')">
-    💩　便
+    💩便
 </button>
 <button class="popup-btn" onclick="addRecord('⚠️')">
-    ⚠️ 粗相
+    ⚠️粗相
 </button>
 
 <br>
@@ -99,8 +106,8 @@ th{
 
 <br>
 
-<button class="popup-btn" onclick="addRecord('😴')">😴　お昼寝</button>
-<button class="popup-btn" onclick="addRecord('🍞')">🍞　ゆっくり</button>
+<button class="popup-btn" onclick="addRecord('😴')">😴お昼寝</button>
+<button class="popup-btn" onclick="addRecord('🍞')">🍞ゆっくり</button>
 
 <br><br>
 <br><br>
@@ -215,7 +222,11 @@ renderBoard();
     document.getElementById("popupTitle")
       .innerHTML =
       currentCat + "　" + currentTime;
-
+document.getElementById("currentRecord")
+.innerHTML =
+"現在の記録<br>" +
+(records[currentCell] || "なし");
+        
     document.getElementById("popup")
       .style.display = "block";
 }
