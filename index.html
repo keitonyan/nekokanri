@@ -80,10 +80,17 @@ th{
 <table id="board"></table>
 
 <div id="popup">
-
-<button class="popup-btn" onclick="addRecord('💧')">💧</button>
-<button class="popup-btn" onclick="addRecord('💩')">💩</button>
-<button class="popup-btn" onclick="addRecord('⚠️')">⚠️</button>
+<h3 id="popupTitle"></h3>
+    
+<button class="popup-btn" onclick="addRecord('💧')">
+    💧 尿
+</button>
+<button class="popup-btn" onclick="addRecord('💩')">
+    💩　便
+</button>
+<button class="popup-btn" onclick="addRecord('⚠️')">
+    ⚠️ 粗相
+</button>
 
 <br>
 
@@ -92,8 +99,8 @@ th{
 
 <br>
 
-<button class="popup-btn" onclick="addRecord('😴')">😴</button>
-<button class="popup-btn" onclick="addRecord('🍞')">🍞</button>
+<button class="popup-btn" onclick="addRecord('😴')">😴　お昼寝</button>
+<button class="popup-btn" onclick="addRecord('🍞')">🍞　ゆっくり</button>
 
 <br><br>
 <br><br>
@@ -127,7 +134,9 @@ localStorage.getItem("records")
 ) || {};
 
 let currentCell = "";
-
+let currentCat = "";
+let currentTime = "";
+    
 function renderBoard(){
 
     let html = "<tr><th>猫</th>";
@@ -196,12 +205,19 @@ localStorage.setItem(
 
 renderBoard();
 }
-
-function editCell(cat,time){
+    function editCell(cat,time){
 
     currentCell = cat + "_" + time;
 
-    document.getElementById("popup").style.display = "block";
+    currentCat = cat;
+    currentTime = time;
+
+    document.getElementById("popupTitle")
+      .innerHTML =
+      currentCat + "　" + currentTime;
+
+    document.getElementById("popup")
+      .style.display = "block";
 }
 
 function addRecord(icon){
