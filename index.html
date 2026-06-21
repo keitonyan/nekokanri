@@ -75,6 +75,8 @@ th{
 <h1>🐱 猫管理</h1>
 
 <button onclick="addCat()">➕ 猫追加</button>
+<button onclick="deleteCat()">➖ 猫削除</button>
+
 <button onclick="addTime()">➕ 時間追加</button>
 
 <table id="board"></table>
@@ -182,7 +184,30 @@ function renderBoard(){
 }
 
 function addCat(){
+function deleteCat(){
 
+    const name = prompt(
+      "削除する猫の名前を入力"
+    );
+
+    if(!name) return;
+
+    const index = cats.indexOf(name);
+
+    if(index === -1){
+        alert("猫が見つかりません");
+        return;
+    }
+
+    cats.splice(index,1);
+
+    localStorage.setItem(
+      "cats",
+      JSON.stringify(cats)
+    );
+
+    renderBoard();
+}
     const name = prompt("猫の名前");
 
     if(!name) return;
