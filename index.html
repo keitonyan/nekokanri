@@ -96,7 +96,9 @@ th{
 <button class="popup-btn" onclick="addRecord('🍞')">🍞</button>
 
 <br><br>
+<br><br>
 
+<button onclick="deleteRecord()">🗑個別削除</button>
 <button onclick="closePopup()">閉じる</button>
 
 </div>
@@ -221,7 +223,34 @@ function closePopup(){
 
     document.getElementById("popup").style.display = "none";
 }
+function deleteRecord(){
 
+    const current = records[currentCell] || "";
+
+    if(current === ""){
+        alert("記録なし");
+        return;
+    }
+
+    const target = prompt(
+      "削除したい記録を入力\n\n" +
+      current
+    );
+
+    if(!target) return;
+
+    records[currentCell] =
+      current.replace(target,"");
+
+    localStorage.setItem(
+      "records",
+      JSON.stringify(records)
+    );
+
+    renderBoard();
+
+    closePopup();
+}
 renderBoard();
 
 </script>
