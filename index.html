@@ -206,8 +206,16 @@ function editCell(cat,time){
 
 function addRecord(icon){
 
+    const current =
+      records[currentCell] || "";
+
+    if(current.includes(icon)){
+        closePopup();
+        return;
+    }
+
     records[currentCell] =
-    (records[currentCell] || "") + icon;
+      current + icon;
 
     localStorage.setItem(
       "records",
