@@ -8,6 +8,26 @@
 
 <style>
 
+    .cage-tag{
+
+    display:inline-block;
+
+    background:#4da3ff;
+
+    color:white;
+
+    padding:5px 12px;
+
+    margin:4px;
+
+    border-radius:20px;
+
+    font-weight:bold;
+
+    font-size:15px;
+
+}
+    
 body{
     font-family:sans-serif;
     padding:20px;
@@ -382,13 +402,20 @@ function updateCageStatus(){
 
         if(inFlag){
             cageCats.push(cat);
-        }
+            let html = "";
 
-    });
+cageCats.forEach(cat=>{
 
-    document.getElementById("cageList").innerHTML =
-        cageCats.length ? cageCats.join("　") : "なし";
+    html += `
+    <span class="cage-tag">
+        ${cat}
+    </span>
+    `;
 
+});
+
+document.getElementById("cageList").innerHTML =
+    html || "なし";
 }
     updateCageStatus();
 </script>
