@@ -379,7 +379,8 @@ renderBoard();
 function updateCageStatus(){
 
     const cageCats = [];
-
+let html = "";
+    
     cats.forEach(cat=>{
 
         let inFlag = false;
@@ -402,8 +403,8 @@ function updateCageStatus(){
 
         if(inFlag){
             cageCats.push(cat);
-            let html = "";
-
+        }
+let html = "";
 cageCats.forEach(cat=>{
 
     html += `
