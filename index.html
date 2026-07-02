@@ -220,6 +220,20 @@ function renderBoard(){
 }
 
 function addCat(){
+
+    const name = prompt("猫の名前");
+
+    if(!name) return;
+
+    cats.push(name);
+
+    localStorage.setItem(
+      "cats",
+      JSON.stringify(cats)
+    );
+
+    renderBoard();
+}
 function deleteCat(){
 
     const name = prompt(
@@ -243,19 +257,6 @@ function deleteCat(){
     );
 
     renderBoard();
-}
-    const name = prompt("猫の名前");
-
-    if(!name) return;
-
- cats.push(name);
-
-localStorage.setItem(
-  "cats",
-  JSON.stringify(cats)
-);
-
-renderBoard();
 }
 
 function addTime(){
@@ -404,6 +405,8 @@ let html = "";
         if(inFlag){
             cageCats.push(cat);
         }
+    });
+    
 let html = "";
 cageCats.forEach(cat=>{
 
@@ -418,7 +421,9 @@ cageCats.forEach(cat=>{
 document.getElementById("cageList").innerHTML =
     html || "なし";
 }
-    updateCageStatus();
+    renderboard();
+    
+
 </script>
 
 </body>
