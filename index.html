@@ -78,6 +78,7 @@ th{
 <button onclick="deleteCat()">➖ 猫削除</button>
 
 <button onclick="addTime()">➕ 時間追加</button>
+<button onclick="deleteTime()">➖ 時間削除</button>
 
 <table id="board"></table>
 
@@ -236,6 +237,34 @@ localStorage.setItem(
 );
 
 renderBoard();
+}
+    function deleteTime(){
+
+    const time = prompt(
+      "削除する時間を入力\n\n例：13:00"
+    );
+
+    if(!time) return;
+
+    const index = times.indexOf(time);
+
+    if(index === -1){
+        alert("その時間はありません");
+        return;
+    }
+
+    if(!confirm(time + " を削除しますか？")){
+        return;
+    }
+
+    times.splice(index,1);
+
+    localStorage.setItem(
+        "times",
+        JSON.stringify(times)
+    );
+
+    renderBoard();
 }
     function editCell(cat,time){
 
