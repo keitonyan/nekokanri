@@ -73,7 +73,21 @@ th{
 <body>
 
 <h1>🐱 猫管理</h1>
+<div id="cageStatus" style="
+margin-bottom:15px;
+padding:10px;
+background:#eef7ff;
+border:1px solid #8ec5ff;
+border-radius:8px;
+">
 
+<b>🐱 現在ケージ中</b>
+
+<div id="cageList">
+なし
+</div>
+
+</div>
 <button onclick="addCat()">➕ 猫追加</button>
 <button onclick="deleteCat()">➖ 猫削除</button>
 
@@ -182,6 +196,7 @@ function renderBoard(){
     });
 
     document.getElementById("board").innerHTML = html;
+    updateCageStatus();
 }
 
 function addCat(){
@@ -341,7 +356,41 @@ function deleteRecord(){
     closePopup();
 }
 renderBoard();
+function updateCageStatus(){
 
+    const cageCats = [];
+
+    cats.forEach(cat=>{
+
+        let inFlag = false;
+
+        times.forEach(time=>{
+
+            const key = cat + "_" + time;
+
+            const data = records[key] || "";
+
+            if(data.includes("IN")){
+                inFlag = true;
+            }
+
+            if(data.includes("OUT")){
+                inFlag = false;
+            }
+
+        });
+
+        if(inFlag){
+            cageCats.push(cat);
+        }
+
+    });
+
+    document.getElementById("cageList").innerHTML =
+        cageCats.length ? cageCats.join("　") : "なし";
+
+}
+    updateCageStatus();
 </script>
 
 </body>
